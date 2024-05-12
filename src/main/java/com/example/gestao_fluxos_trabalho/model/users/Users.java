@@ -1,24 +1,27 @@
-package model.users;
+package com.example.gestao_fluxos_trabalho.model.users;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
+@Entity
 @Table(name = "users")
-public class Users {
+public class Users implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "admin", nullable = false)
+    @Column(name = "ADMIN", nullable = false)
     private int admin;
 
     // Constructors, getters, and setters

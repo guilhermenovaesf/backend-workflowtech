@@ -1,9 +1,8 @@
-package model.worfklow_step;
-
+package com.example.gestao_fluxos_trabalho.model.worfklow_step;
+import com.example.gestao_fluxos_trabalho.model.users.Users;
+import com.example.gestao_fluxos_trabalho.model.workflow.Workflow;
 import jakarta.persistence.*;
-import model.users.Users;
-import model.workflow.Workflow;
-import model.workflow_type_step.Workflow_type_step;
+import com.example.gestao_fluxos_trabalho.model.workflow_type_step.Workflow_type_step;
 
 @Entity
 @Table(name = "workflow_step")
@@ -30,7 +29,6 @@ public class Workflow_step {
     @Column(name = "IS_APPROVED", columnDefinition = "int default 0")
     private int isApproved;
 
-    @ManyToOne
     @JoinColumn(name = "ASSIGNED_TO", referencedColumnName = "id")
     private Users assignedTo;
 

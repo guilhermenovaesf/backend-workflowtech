@@ -1,7 +1,7 @@
-package model.workflow;
+package com.example.gestao_fluxos_trabalho.model.workflow;
 
+import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
 import jakarta.persistence.*;
-import model.workflow_type.Workflow_type;
 
 import java.util.Date;
 

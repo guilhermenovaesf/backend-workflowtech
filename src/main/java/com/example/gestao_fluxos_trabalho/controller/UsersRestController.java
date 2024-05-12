@@ -1,11 +1,12 @@
-package controller;
-import DTO.UsersDTO;
-import business.UserBusiness;
-import model.users.Users;
+package com.example.gestao_fluxos_trabalho.controller;
+import com.example.gestao_fluxos_trabalho.DTO.UsersDTO;
+import com.example.gestao_fluxos_trabalho.business.UserBusiness;
+import com.example.gestao_fluxos_trabalho.model.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -14,10 +15,26 @@ public class UsersRestController {
     @Autowired
     private UserBusiness userBusiness;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping("/create")
     public ResponseEntity<Users> createUser(@RequestBody UsersDTO userDTO) {
         Users createdUser = userBusiness.createUser(convertToEntity(userDTO));
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UsersDTO>> listUsers() {
+        List<UsersDTO> users = userBusiness.getAllUsersDTO();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsersDTO> getUser(@PathVariable Long id) {
+        UsersDTO user = userBusiness.getUserDTO(id);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     private Users convertToEntity(UsersDTO userDTO) {

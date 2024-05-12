@@ -1,7 +1,10 @@
-package DTO;
+package com.example.gestao_fluxos_trabalho.DTO;
+
+import com.example.gestao_fluxos_trabalho.model.users.Users;
 
 public class UsersDTO {
 
+    private Long id;
     private String name;
     private String password;
     private String email;
@@ -12,7 +15,16 @@ public class UsersDTO {
     public UsersDTO() {
     }
 
-    public UsersDTO(String name, String password, String email, int admin) {
+    public UsersDTO(Users user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.admin = user.getAdmin();
+    }
+
+    public UsersDTO(Long id, String name, String password, String email, int admin) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
@@ -51,5 +63,13 @@ public class UsersDTO {
 
     public void setAdmin(int admin) {
         this.admin = admin;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

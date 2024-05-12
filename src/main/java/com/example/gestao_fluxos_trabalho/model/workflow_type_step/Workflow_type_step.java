@@ -1,8 +1,7 @@
-package model.workflow_type_step;
-
+package com.example.gestao_fluxos_trabalho.model.workflow_type_step;
+import com.example.gestao_fluxos_trabalho.model.users.Users;
+import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
 import jakarta.persistence.*;
-import model.users.Users;
-import model.workflow_type.Workflow_type;
 
 @Entity
 @Table(name = "workflow_type_step")

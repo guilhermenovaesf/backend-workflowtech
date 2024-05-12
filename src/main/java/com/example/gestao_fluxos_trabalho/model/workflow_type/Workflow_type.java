@@ -1,4 +1,4 @@
-package model.workflow_type;
+package com.example.gestao_fluxos_trabalho.model.workflow_type;
 
 import jakarta.persistence.*;
 
