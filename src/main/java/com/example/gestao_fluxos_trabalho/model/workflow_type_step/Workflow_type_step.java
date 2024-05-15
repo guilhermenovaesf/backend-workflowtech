@@ -11,8 +11,8 @@ public class Workflow_type_step {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "WORKFLOW_TYPE_ID", referencedColumnName = "id")
+    @OneToOne(targetEntity=Workflow_type.class)
+    @JoinColumn(name="WORKFLOW_TYPE_ID")
     private Workflow_type workflowType;
 
     @Column(name = "DESCRIPTION", length = 500)

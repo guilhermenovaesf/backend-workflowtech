@@ -22,7 +22,8 @@ public class Workflow_type {
     @Column(name = "DESCRIPTION", columnDefinition = "longtext")
     private String description;
 
-    @JoinColumn(name = "CREATED_BY", referencedColumnName = "id")
+    @ManyToOne(fetch=FetchType.EAGER, targetEntity=Users.class, optional=false)
+    @JoinColumn(name="CREATED_BY")
     private Users createdBy;
 
     @Column(name = "CREATED_ON", nullable = false)

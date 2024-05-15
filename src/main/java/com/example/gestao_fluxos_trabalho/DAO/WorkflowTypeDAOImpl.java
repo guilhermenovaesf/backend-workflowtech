@@ -1,6 +1,7 @@
 package com.example.gestao_fluxos_trabalho.DAO;
 
 import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
+import com.example.gestao_fluxos_trabalho.model.workflow_type_step.Workflow_type_step;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,15 @@ public class WorkflowTypeDAOImpl implements WorkflowTypeDAO{
     private EntityManager entityManager;
 
     @Override
-    public void save(Workflow_type workflowType) {
+    public Workflow_type save(Workflow_type workflowType) {
         entityManager.persist(workflowType);
+        entityManager.flush(); // Garante que as alterações sejam enviadas para o banco de dados
+        return workflowType;
+    }
+
+    @Override
+    public void saveWorkflowTypeStep(Workflow_type_step workflowTypeStep) {
+        entityManager.persist(workflowTypeStep);
+
     }
 }
