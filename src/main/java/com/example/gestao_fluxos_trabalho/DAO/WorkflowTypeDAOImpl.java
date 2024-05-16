@@ -26,4 +26,9 @@ public class WorkflowTypeDAOImpl implements WorkflowTypeDAO{
         entityManager.persist(workflowTypeStep);
 
     }
+
+    @Override
+    public Workflow_type findById(int id) {
+        return entityManager.find(Workflow_type.class, id);
+    }
 }

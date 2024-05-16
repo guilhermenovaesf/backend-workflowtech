@@ -7,4 +7,6 @@ public interface WorkflowTypeDAO {
 
     public Workflow_type save(Workflow_type workflowType);
     public void saveWorkflowTypeStep(Workflow_type_step workflowTypeStep);
+
+    public Workflow_type findById(int id);
 }
