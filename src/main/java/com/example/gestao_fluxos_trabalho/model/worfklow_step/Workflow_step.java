@@ -29,6 +29,7 @@ public class Workflow_step {
     @Column(name = "IS_APPROVED", columnDefinition = "int default 0")
     private int isApproved;
 
+    @ManyToOne
     @JoinColumn(name = "ASSIGNED_TO", referencedColumnName = "id")
     private Users assignedTo;
 

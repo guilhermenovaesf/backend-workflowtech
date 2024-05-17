@@ -35,6 +35,22 @@ public class WorkflowTypeDTO {
                 new ArrayList<WorkflowTypeStepDTO>();
     }
 
+    public WorkflowTypeDTO(Workflow_type workflowType,boolean workflowTypeStepPut) {
+        this.id = workflowType.getId();
+        this.title = workflowType.getTitle();
+        this.description = workflowType.getDescription();
+        this.createdBy = new UsersDTO(workflowType.getCreatedBy());
+        this.createdOn = workflowType.getCreatedOn();
+        if(workflowTypeStepPut) {
+            this.workflowTypeStepTOList = workflowType.getWorkflowTypeStepList() != null ? workflowType.getWorkflowTypeStepList()
+                    .stream()
+                    .filter(workflowTypeStep -> workflowTypeStep != null)
+                    .map(WorkflowTypeStepDTO::new)
+                    .collect(Collectors.toList()) :
+                    new ArrayList<WorkflowTypeStepDTO>();
+        }
+    }
+
     // Getters and Setters
 
     public int getId() {

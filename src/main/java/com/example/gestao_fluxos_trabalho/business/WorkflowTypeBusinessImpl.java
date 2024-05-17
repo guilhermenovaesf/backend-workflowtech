@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class WorkflowTypeBusinessImpl implements WorkflowTypeBusiness {
 
@@ -45,10 +48,20 @@ public class WorkflowTypeBusinessImpl implements WorkflowTypeBusiness {
         }
     }
 
+    @Transactional
     @Override
     public WorkflowTypeDTO getWorkflowType(int id) {
         Workflow_type workflowType = workflowTypeDAO.findById(id);
         return new WorkflowTypeDTO(workflowType);
 
+    }
+
+    @Transactional
+    @Override
+    public List<WorkflowTypeDTO> listWorkflowType() {
+        List<Workflow_type> workflowTypeList = workflowTypeDAO.findAll();
+        return workflowTypeList.stream()
+                .map(workflowType -> new WorkflowTypeDTO(workflowType, false))
+                .collect(Collectors.toList());
     }
 }

@@ -9,7 +9,7 @@ public class WorkflowDTO {
     private int id;
     private WorkflowTypeDTO workflowType;
     private String description;
-    private int createdBy;
+    private UsersDTO createdBy;
     private Date createdOn;
     private int finished;
     private int canceled;
@@ -22,7 +22,7 @@ public class WorkflowDTO {
         this.id = workflow.getId();
         this.workflowType = new WorkflowTypeDTO(workflow.getWorkflowType());
         this.description = workflow.getDescription();
-        this.createdBy = workflow.getCreatedBy();
+        this.createdBy = new UsersDTO(workflow.getCreatedBy());
         this.createdOn = workflow.getCreatedOn();
         this.finished = workflow.getFinished();
         this.canceled = workflow.getCanceled();
@@ -52,14 +52,6 @@ public class WorkflowDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(int createdBy) {
-        this.createdBy = createdBy;
     }
 
     public Date getCreatedOn() {
@@ -92,5 +84,13 @@ public class WorkflowDTO {
 
     public void setWorkflowTypeId(int workflowTypeId) {
         this.workflowTypeId = workflowTypeId;
+    }
+
+    public UsersDTO getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UsersDTO createdBy) {
+        this.createdBy = createdBy;
     }
 }

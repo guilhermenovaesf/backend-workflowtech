@@ -1,5 +1,6 @@
 package com.example.gestao_fluxos_trabalho.model.workflow;
 
+import com.example.gestao_fluxos_trabalho.model.users.Users;
 import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
 import jakarta.persistence.*;
 
@@ -20,8 +21,9 @@ public class Workflow {
     @Column(name = "DESCRIPTION", columnDefinition = "longtext", nullable = false)
     private String description;
 
-    @Column(name = "CREATED_BY", nullable = false)
-    private int createdBy;
+    @ManyToOne(fetch=FetchType.EAGER, targetEntity= Users.class, optional=false)
+    @JoinColumn(name="CREATED_BY")
+    private Users createdBy;
 
     @Column(name = "CREATED_ON")
     private Date createdOn;
@@ -61,15 +63,16 @@ public class Workflow {
         this.description = description;
     }
 
-    public int getCreatedBy() {
+    public Users getCreatedBy() {
+
         return createdBy;
     }
 
-    public void setCreatedBy(int createdBy) {
+    public void setCreatedBy(Users createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Date getCreatedOn() {
+        public Date getCreatedOn() {
         return createdOn;
     }
 

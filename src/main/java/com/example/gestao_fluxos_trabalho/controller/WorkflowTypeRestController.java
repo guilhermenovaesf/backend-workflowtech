@@ -1,14 +1,14 @@
 package com.example.gestao_fluxos_trabalho.controller;
 
+import com.example.gestao_fluxos_trabalho.DTO.UsersDTO;
 import com.example.gestao_fluxos_trabalho.DTO.WorkflowTypeDTO;
 import com.example.gestao_fluxos_trabalho.business.WorkflowTypeBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/workflowType")
@@ -24,6 +24,22 @@ public class WorkflowTypeRestController {
             return new ResponseEntity<>("Workflow created successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<WorkflowTypeDTO>> listWorkflowType() {
+        List<WorkflowTypeDTO> workflowTypeList = workflowTypeBusiness.listWorkflowType();
+        return new ResponseEntity<>(workflowTypeList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<WorkflowTypeDTO> getWorkflowType(@PathVariable int id) {
+        WorkflowTypeDTO workflowType = workflowTypeBusiness.getWorkflowType(id);
+        if (workflowType != null) {
+            return new ResponseEntity<>(workflowType, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

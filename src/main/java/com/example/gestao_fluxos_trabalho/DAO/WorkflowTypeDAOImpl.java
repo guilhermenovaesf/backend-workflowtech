@@ -7,6 +7,8 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public class WorkflowTypeDAOImpl implements WorkflowTypeDAO{
@@ -30,5 +32,10 @@ public class WorkflowTypeDAOImpl implements WorkflowTypeDAO{
     @Override
     public Workflow_type findById(int id) {
         return entityManager.find(Workflow_type.class, id);
+    }
+
+    @Override
+    public List<Workflow_type> findAll() {
+        return entityManager.createQuery("SELECT wt FROM Workflow_type wt", Workflow_type.class).getResultList();
     }
 }
