@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsersRestController {
 
     @Autowired
@@ -34,6 +35,16 @@ public class UsersRestController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody UsersDTO userDTO) {
+        Users user = userBusiness.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+        if (user != null) {
+            return new ResponseEntity<>(user.getId(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
         }
     }
 

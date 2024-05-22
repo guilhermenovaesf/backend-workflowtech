@@ -10,4 +10,6 @@ public interface UserDAO {
     public Users findById(Long id);
 
     public List<Users> findAll();
+
+    public Users findByEmailAndPassword(String email, String password);
 }

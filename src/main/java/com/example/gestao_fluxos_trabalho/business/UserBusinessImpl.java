@@ -34,4 +34,9 @@ public class UserBusinessImpl implements UserBusiness{
         return new UsersDTO(user);
 
     }
+
+    @Override
+    public Users findByEmailAndPassword(String email, String password) {
+        return userDAO.findByEmailAndPassword(email, password);
+    }
 }

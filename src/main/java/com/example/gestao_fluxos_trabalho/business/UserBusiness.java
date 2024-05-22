@@ -11,4 +11,6 @@ public interface UserBusiness {
     public List<UsersDTO> getAllUsersDTO();
 
     public UsersDTO getUserDTO(Long id);
+
+    public Users findByEmailAndPassword(String email, String password);
 }
