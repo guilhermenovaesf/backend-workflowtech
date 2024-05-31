@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,24 +26,24 @@ public class WorkflowTypeBusinessImpl implements WorkflowTypeBusiness {
 
     @Transactional
     @Override
-    public void createWorkflowType(WorkflowTypeDTO workflowTypeDTO) {
+    public void createWorkflowType(WorkflowTypeDTO workflowTypeDTO, Long loggedUserId) {
         Workflow_type workflowType = new Workflow_type();
         workflowType.setTitle(workflowTypeDTO.getTitle());
         workflowType.setDescription(workflowTypeDTO.getDescription());
 
         Users createdBy = new Users();
-        createdBy =userDAO.findById(workflowTypeDTO.getCreatedBy().getId());
+        createdBy =userDAO.findById(loggedUserId);
 
         workflowType.setCreatedBy(createdBy);
 
-        workflowType.setCreatedOn(workflowTypeDTO.getCreatedOn());
+        workflowType.setCreatedOn(new Date());
 
         Workflow_type returnType = workflowTypeDAO.save(workflowType);
 
         for (WorkflowTypeStepDTO stepTO : workflowTypeDTO.getWorkflowTypeStepTOList()) {
             Workflow_type_step workflowStep = new Workflow_type_step();
             workflowStep.setDescription(stepTO.getDescription());
-            workflowStep.setUser(userDAO.findById(stepTO.getUserId().getId()));
+            workflowStep.setUser(userDAO.findById(stepTO.getUserId()));
             workflowStep.setWorkflowType(returnType);
             workflowTypeDAO.saveWorkflowTypeStep(workflowStep);
         }
@@ -52,7 +53,7 @@ public class WorkflowTypeBusinessImpl implements WorkflowTypeBusiness {
     @Override
     public WorkflowTypeDTO getWorkflowType(int id) {
         Workflow_type workflowType = workflowTypeDAO.findById(id);
-        return new WorkflowTypeDTO(workflowType);
+        return new WorkflowTypeDTO(workflowType,false);
 
     }
 

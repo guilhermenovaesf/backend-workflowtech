@@ -8,6 +8,7 @@ public class WorkflowTypeStepDTO {
     private int workflowTypeId;
     private String description;
     private UsersDTO user;
+    private long userId;
 
     // Constructors
     public WorkflowTypeStepDTO() {
@@ -17,7 +18,8 @@ public class WorkflowTypeStepDTO {
         this.id = step.getId();
         this.workflowTypeId = step.getWorkflowType().getId();
         this.description = step.getDescription();
-        this.user = new UsersDTO(step.getUser());
+        this.user = step.getUser() !=null ? new UsersDTO(step.getUser()) : null ;
+        this.userId = step.getUser() !=null ? step.getUser().getId() : 0;
     }
 
     // Getters and Setters
@@ -46,11 +48,19 @@ public class WorkflowTypeStepDTO {
         this.description = description;
     }
 
-    public UsersDTO getUserId() {
+    public UsersDTO getUser() {
         return user;
     }
 
-    public void setUserId(UsersDTO user) {
+    public void setUser(UsersDTO user) {
         this.user = user;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

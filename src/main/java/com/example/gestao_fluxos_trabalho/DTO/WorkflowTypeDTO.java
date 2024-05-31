@@ -35,6 +35,7 @@ public class WorkflowTypeDTO {
                 new ArrayList<WorkflowTypeStepDTO>();
     }
 
+
     public WorkflowTypeDTO(Workflow_type workflowType,boolean workflowTypeStepPut) {
         this.id = workflowType.getId();
         this.title = workflowType.getTitle();

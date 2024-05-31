@@ -5,7 +5,7 @@ import com.example.gestao_fluxos_trabalho.DTO.WorkflowTypeDTO;
 import java.util.List;
 
 public interface WorkflowTypeBusiness {
-    public void createWorkflowType(WorkflowTypeDTO workflowTypeDTO);
+    public void createWorkflowType(WorkflowTypeDTO workflowTypeDTO, Long loggedUserId);
 
     public WorkflowTypeDTO getWorkflowType(int id);
 

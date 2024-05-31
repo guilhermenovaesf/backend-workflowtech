@@ -19,13 +19,9 @@ public class WorkflowTypeRestController {
     private WorkflowTypeBusiness workflowTypeBusiness;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createWorkflowType(@RequestBody WorkflowTypeDTO workflowTypeDTO, @RequestHeader("UserId") Long userId) {
-        try {
-            workflowTypeBusiness.createWorkflowType(workflowTypeDTO);
-            return new ResponseEntity<>("Workflow created successfully", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<String> createWorkflowType(@RequestBody WorkflowTypeDTO workflowTypeDTO, @RequestHeader("UserId") Long loggedUserId) {
+            workflowTypeBusiness.createWorkflowType(workflowTypeDTO,loggedUserId);
+            return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
