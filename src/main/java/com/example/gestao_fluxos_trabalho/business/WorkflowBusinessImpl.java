@@ -3,7 +3,9 @@ package com.example.gestao_fluxos_trabalho.business;
 import com.example.gestao_fluxos_trabalho.DAO.UserDAO;
 import com.example.gestao_fluxos_trabalho.DAO.WorkflowDAO;
 import com.example.gestao_fluxos_trabalho.DAO.WorkflowTypeDAO;
+import com.example.gestao_fluxos_trabalho.DTO.WorkflowAssignedToMeDTO;
 import com.example.gestao_fluxos_trabalho.DTO.WorkflowDTO;
+import com.example.gestao_fluxos_trabalho.DTO.WorkflowMyListDTO;
 import com.example.gestao_fluxos_trabalho.model.worfklow_step.Workflow_step;
 import com.example.gestao_fluxos_trabalho.model.workflow.Workflow;
 import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
@@ -41,16 +43,16 @@ public class WorkflowBusinessImpl implements WorkflowBusiness {
 
         Workflow workflowReturn = workflowDAO.save(workflow);
 
-        if(!workflowType.getWorkflowTypeStepList().isEmpty()){
+        if (!workflowType.getWorkflowTypeStepList().isEmpty()) {
             int count = 0;
-            for(Workflow_type_step workflowTypeStep : workflowType.getWorkflowTypeStepList()){
+            for (Workflow_type_step workflowTypeStep : workflowType.getWorkflowTypeStepList()) {
                 Workflow_step workflowStep = new Workflow_step();
                 workflowStep.setWorkflow(workflowReturn);
                 workflowStep.setAssignedTo(workflowTypeStep.getUser());
                 workflowStep.setWorkflowTypeStep(workflowTypeStep);
                 workflowStep.setWorkflowTypeStepDescription(workflowTypeStep.getDescription());
                 workflowStep.setIsApproved(0);
-                if(count == 0){
+                if (count == 0) {
                     workflowStep.setIsCurrent(1);
                 }
                 count++;
@@ -72,5 +74,18 @@ public class WorkflowBusinessImpl implements WorkflowBusiness {
     public List<WorkflowDTO> listClosedWorkflowUser(Long userId) {
         List<Workflow> workflowList = workflowDAO.listClosedWorkflowUser(userId);
         return workflowList.stream().map(WorkflowDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public List<WorkflowMyListDTO> listMyWorkflows(Long loggedUserId) {
+        return workflowDAO.listMyWorkflows(loggedUserId);
+
+    }
+
+    @Transactional
+    @Override
+    public List<WorkflowAssignedToMeDTO> listWorkflowAssignedToMe(Long loggedUserId) {
+        return workflowDAO.listWorkflowsByAssignedUser(loggedUserId);
     }
 }

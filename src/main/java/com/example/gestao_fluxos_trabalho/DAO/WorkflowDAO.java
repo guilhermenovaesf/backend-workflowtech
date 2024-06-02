@@ -1,5 +1,7 @@
 package com.example.gestao_fluxos_trabalho.DAO;
 
+import com.example.gestao_fluxos_trabalho.DTO.WorkflowAssignedToMeDTO;
+import com.example.gestao_fluxos_trabalho.DTO.WorkflowMyListDTO;
 import com.example.gestao_fluxos_trabalho.model.worfklow_step.Workflow_step;
 import com.example.gestao_fluxos_trabalho.model.workflow.Workflow;
 
@@ -14,4 +16,8 @@ public interface WorkflowDAO {
     public List<Workflow> listOpenWorkflowUser(Long userId);
 
     public List<Workflow> listClosedWorkflowUser(Long userId);
+
+    public List<WorkflowMyListDTO> listMyWorkflows(Long userId);
+
+    public List<WorkflowAssignedToMeDTO> listWorkflowsByAssignedUser(Long userId);
 }
