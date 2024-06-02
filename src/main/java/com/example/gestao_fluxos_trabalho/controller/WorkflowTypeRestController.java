@@ -19,7 +19,7 @@ public class WorkflowTypeRestController {
     private WorkflowTypeBusiness workflowTypeBusiness;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createWorkflowType(@RequestBody WorkflowTypeDTO workflowTypeDTO, @RequestHeader("UserId") Long loggedUserId) {
+    public ResponseEntity<String> createWorkflowType(@RequestBody WorkflowTypeDTO workflowTypeDTO, @RequestHeader("userId") Long loggedUserId) {
             workflowTypeBusiness.createWorkflowType(workflowTypeDTO,loggedUserId);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,14 +30,14 @@ public class WorkflowBusinessImpl implements WorkflowBusiness {
 
     @Transactional
     @Override
-    public void createWorkflow(WorkflowDTO workflowDTO) {
+    public void createWorkflow(WorkflowDTO workflowDTO, Long loggedUserId) {
         Workflow workflow = new Workflow();
         Workflow_type workflowType = new Workflow_type();
         workflowType = workflowTypeDAO.findById(workflowDTO.getWorkflowTypeId());
         workflow.setWorkflowType(workflowType);
         workflow.setDescription(workflowDTO.getDescription());
-        workflow.setCreatedBy(userDAO.findById(workflowDTO.getCreatedBy().getId()));
-        workflow.setCreatedOn(workflowDTO.getCreatedOn());
+        workflow.setCreatedBy(userDAO.findById(loggedUserId));
+        workflow.setCreatedOn(new Date());
 
         Workflow workflowReturn = workflowDAO.save(workflow);
 

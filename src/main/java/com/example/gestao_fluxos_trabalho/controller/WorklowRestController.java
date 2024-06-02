@@ -19,9 +19,9 @@ public class WorklowRestController {
     private WorkflowBusiness workflowBusiness;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createWorkflow(@RequestBody WorkflowDTO workflowDTO) {
+    public ResponseEntity<String> createWorkflow(@RequestBody WorkflowDTO workflowDTO, @RequestHeader("userId") Long loggedUserId) {
         try {
-            workflowBusiness.createWorkflow(workflowDTO);
+            workflowBusiness.createWorkflow(workflowDTO,loggedUserId);
             return new ResponseEntity<>("Workflow created successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
