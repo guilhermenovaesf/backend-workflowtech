@@ -70,13 +70,14 @@ public class WorkflowDAOImpl implements WorkflowDAO{
     @Override
     public List<WorkflowAssignedToMeDTO> listWorkflowsByAssignedUser(Long userId) {
         List<Object[]> results = entityManager.createNativeQuery(
-                        "SELECT W.ID workflow_id, WS.ID workflow_step_id, WT.TITLE title, W.CREATED_ON createdOn, U.NAME userName " +
+                        "SELECT W.ID workflow_id, WS.ID workflow_step_id, WT.TITLE title, W.CREATED_ON createdOn, W.DESCRIPTION descriptionWorkflow, U.NAME userName " +
                                 "FROM WORKFLOW_STEP WS, WORKFLOW W, WORKFLOW_TYPE WT, USERS U " +
                                 "WHERE WS.ASSIGNED_TO = :userId " +
                                 "AND WS.IS_CURRENT = 1 " +
                                 "AND WS.IS_APPROVED = 0 " +
                                 "AND W.FINISHED = 0 AND W.CANCELED = 0 "+
                                 "AND WS.WORKFLOW_ID = W.ID " +
+                                "AND WT.ID = W.WORKFLOW_TYPE_ID " +
                                 "AND U.ID = WS.ASSIGNED_TO " +
                                 "GROUP BY WS.ID ORDER BY createdOn")
                 .setParameter("userId", userId)
@@ -89,9 +90,17 @@ public class WorkflowDAOImpl implements WorkflowDAO{
                     workflowDTO.setWorkflowStepId(((Number) result[1]).longValue());
                     workflowDTO.setTitle((String) result[2]);
                     workflowDTO.setCreatedOn(((Date) result[3]));
-                    workflowDTO.setUserName((String) result[4]);
+                    workflowDTO.setWorkflowDescription((String) result[4]);
+                    workflowDTO.setUserName((String) result[5]);
                     return workflowDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Workflow_step> listWorkflowStepByWorkflowId(Long workflowId) {
+        return entityManager.createQuery("SELECT ws FROM Workflow_step ws WHERE ws.workflow.id = :workflowId", Workflow_step.class)
+                .setParameter("workflowId", workflowId)
+                .getResultList();
     }
 }

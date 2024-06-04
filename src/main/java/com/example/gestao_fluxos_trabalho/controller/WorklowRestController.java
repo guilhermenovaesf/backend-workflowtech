@@ -1,9 +1,6 @@
 package com.example.gestao_fluxos_trabalho.controller;
 
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowAssignedToMeDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowMyListDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowTypeDTO;
+import com.example.gestao_fluxos_trabalho.DTO.*;
 import com.example.gestao_fluxos_trabalho.business.WorkflowBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +58,16 @@ public class WorklowRestController {
         List<WorkflowAssignedToMeDTO> workflow = workflowBusiness.listWorkflowAssignedToMe(id);
         if (workflow != null) {
             return new ResponseEntity<>(workflow, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/listWorkflowStepByWorkflowId/{workflowId}")
+    public ResponseEntity<List<WorkflowStepDTO>> workflowStepList(@PathVariable Long workflowId) {
+        List<WorkflowStepDTO> workflowStepList = workflowBusiness.listWorkflowStepByWorkflowId(workflowId);
+        if (workflowStepList != null) {
+            return new ResponseEntity<>(workflowStepList, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

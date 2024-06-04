@@ -7,6 +7,7 @@ public class WorkflowAssignedToMeDTO {
     private Long workflowStepId;
     private String title;
     private Date createdOn;
+    private String workflowDescription;
     private String userName;
 
     public Long getWorkflowId() {
@@ -47,5 +48,13 @@ public class WorkflowAssignedToMeDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getWorkflowDescription() {
+        return workflowDescription;
+    }
+
+    public void setWorkflowDescription(String workflowDescription) {
+        this.workflowDescription = workflowDescription;
     }
 }

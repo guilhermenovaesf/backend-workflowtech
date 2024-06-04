@@ -6,6 +6,7 @@ import com.example.gestao_fluxos_trabalho.DAO.WorkflowTypeDAO;
 import com.example.gestao_fluxos_trabalho.DTO.WorkflowAssignedToMeDTO;
 import com.example.gestao_fluxos_trabalho.DTO.WorkflowDTO;
 import com.example.gestao_fluxos_trabalho.DTO.WorkflowMyListDTO;
+import com.example.gestao_fluxos_trabalho.DTO.WorkflowStepDTO;
 import com.example.gestao_fluxos_trabalho.model.worfklow_step.Workflow_step;
 import com.example.gestao_fluxos_trabalho.model.workflow.Workflow;
 import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,5 +89,16 @@ public class WorkflowBusinessImpl implements WorkflowBusiness {
     @Override
     public List<WorkflowAssignedToMeDTO> listWorkflowAssignedToMe(Long loggedUserId) {
         return workflowDAO.listWorkflowsByAssignedUser(loggedUserId);
+    }
+
+    @Transactional
+    @Override
+    public List<WorkflowStepDTO> listWorkflowStepByWorkflowId(Long workflowId){
+        List<Workflow_step> listStep = workflowDAO.listWorkflowStepByWorkflowId(workflowId);
+        List<WorkflowStepDTO> dtoStepList = new ArrayList<WorkflowStepDTO>();
+        for(Workflow_step step : listStep){
+            dtoStepList.add(new WorkflowStepDTO(step,0));
+        }
+    return dtoStepList;
     }
 }

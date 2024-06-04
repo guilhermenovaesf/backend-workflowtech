@@ -26,6 +26,20 @@ public class WorkflowStepDTO {
         this.assignedTo = new UsersDTO(workflowStep.getAssignedTo());
         this.isCurrent = workflowStep.getIsCurrent();
     }
+    public WorkflowStepDTO(Workflow_step workflowStep,int projection) {
+        this.id = workflowStep.getId();
+        this.comment = workflowStep.getComment();
+        this.isApproved = workflowStep.getIsApproved();
+        this.assignedTo = new UsersDTO(workflowStep.getAssignedTo());
+        this.isCurrent = workflowStep.getIsCurrent();
+        this.workflowTypeStepDescription = workflowStep.getWorkflowTypeStepDescription();
+        if(projection==1){
+            this.workflow = new WorkflowDTO(workflowStep.getWorkflow());
+            this.workflowTypeStep = new WorkflowTypeStepDTO(workflowStep.getWorkflowTypeStep());
+
+        }
+    }
+
 
     // Getters and Setters
     public int getId() {

@@ -20,4 +20,6 @@ public interface WorkflowDAO {
     public List<WorkflowMyListDTO> listMyWorkflows(Long userId);
 
     public List<WorkflowAssignedToMeDTO> listWorkflowsByAssignedUser(Long userId);
+
+    public List<Workflow_step> listWorkflowStepByWorkflowId(Long workflowId);
 }
