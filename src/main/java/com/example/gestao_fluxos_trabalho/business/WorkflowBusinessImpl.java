@@ -3,10 +3,7 @@ package com.example.gestao_fluxos_trabalho.business;
 import com.example.gestao_fluxos_trabalho.DAO.UserDAO;
 import com.example.gestao_fluxos_trabalho.DAO.WorkflowDAO;
 import com.example.gestao_fluxos_trabalho.DAO.WorkflowTypeDAO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowAssignedToMeDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowMyListDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowStepDTO;
+import com.example.gestao_fluxos_trabalho.DTO.*;
 import com.example.gestao_fluxos_trabalho.model.worfklow_step.Workflow_step;
 import com.example.gestao_fluxos_trabalho.model.workflow.Workflow;
 import com.example.gestao_fluxos_trabalho.model.workflow_type.Workflow_type;
@@ -100,5 +97,10 @@ public class WorkflowBusinessImpl implements WorkflowBusiness {
             dtoStepList.add(new WorkflowStepDTO(step,0));
         }
     return dtoStepList;
+    }
+
+    @Override
+    public void aproveOrRejectWorklow(WorkflowStepAproveRejectDTO workflowData) {
+
     }
 }

@@ -72,4 +72,11 @@ public class WorklowRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/aproveOrReject")
+    public ResponseEntity<String> aproveOrRejectWorklow(@RequestBody WorkflowStepAproveRejectDTO workflowData) {
+        workflowBusiness.aproveOrRejectWorklow(workflowData);
+        return new ResponseEntity<>("Workflow data received successfully", HttpStatus.OK);
+    }
+
 }

@@ -1,10 +1,7 @@
 package com.example.gestao_fluxos_trabalho.business;
 
 
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowAssignedToMeDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowMyListDTO;
-import com.example.gestao_fluxos_trabalho.DTO.WorkflowStepDTO;
+import com.example.gestao_fluxos_trabalho.DTO.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,4 +14,5 @@ public interface WorkflowBusiness {
     public List<WorkflowMyListDTO> listMyWorkflows(Long loggedUserId);
     public List<WorkflowAssignedToMeDTO> listWorkflowAssignedToMe(Long loggedUserId);
     public List<WorkflowStepDTO> listWorkflowStepByWorkflowId(Long workflowId);
+   public void aproveOrRejectWorklow(WorkflowStepAproveRejectDTO workflowData);
 }
