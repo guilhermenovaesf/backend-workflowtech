@@ -103,4 +103,16 @@ public class WorkflowDAOImpl implements WorkflowDAO{
                 .setParameter("workflowId", workflowId)
                 .getResultList();
     }
+
+    @Override
+    public Workflow_step getStepById(Long id) {
+        return entityManager.find(Workflow_step.class, id);
+    }
+
+    @Override
+    public Workflow getWorkflowById(Long id) {
+        return entityManager.find(Workflow.class, id);
+    }
+
+
 }

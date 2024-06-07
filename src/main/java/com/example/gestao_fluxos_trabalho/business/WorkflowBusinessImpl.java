@@ -101,6 +101,33 @@ public class WorkflowBusinessImpl implements WorkflowBusiness {
 
     @Override
     public void aproveOrRejectWorklow(WorkflowStepAproveRejectDTO workflowData) {
+        Workflow_step workflowStep = workflowDAO.getStepById(workflowData.getWorkflowStepId());
+        Workflow workflow = workflowDAO.getWorkflowById(workflowData.getWorkflowId());
+        if (workflowData.isAproved()) {
+            workflowStep.setIsApproved(1);
+        } else {
+            workflowStep.setIsApproved(0);
+            workflow.setCanceled(1);
+        }
+        workflowStep.setComment(workflowData.getComment());
+        workflowStep.setIsCurrent(0);
+
+
+        List<WorkflowStepDTO> stepList = listWorkflowStepByWorkflowId(workflowData.getWorkflowId());
+        if (workflowData.isAproved()){
+            for (int i = 0; i < stepList.size(); i++) {
+                WorkflowStepDTO currentStep = stepList.get(i);
+
+                if (i == stepList.size() - 1) {
+                    workflow.setFinished(1);
+                } else {
+                    // Não é a última iteração, pegar o valor da próxima iteração
+                    WorkflowStepDTO nextStep = stepList.get(i + 1);
+                    Workflow_step nextCurrentStep = workflowDAO.getStepById((long) nextStep.getId());
+                    nextCurrentStep.setIsCurrent(1);
+                }
+            }
+    }
 
     }
 }

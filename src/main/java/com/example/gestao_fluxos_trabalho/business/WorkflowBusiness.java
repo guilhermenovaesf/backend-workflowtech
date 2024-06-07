@@ -14,5 +14,5 @@ public interface WorkflowBusiness {
     public List<WorkflowMyListDTO> listMyWorkflows(Long loggedUserId);
     public List<WorkflowAssignedToMeDTO> listWorkflowAssignedToMe(Long loggedUserId);
     public List<WorkflowStepDTO> listWorkflowStepByWorkflowId(Long workflowId);
-   public void aproveOrRejectWorklow(WorkflowStepAproveRejectDTO workflowData);
+    public void aproveOrRejectWorklow(WorkflowStepAproveRejectDTO workflowData);
 }
