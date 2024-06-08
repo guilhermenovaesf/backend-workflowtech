@@ -49,7 +49,7 @@ public class WorkflowDAOImpl implements WorkflowDAO{
     @Override
     public List<WorkflowMyListDTO> listMyWorkflows(Long userId) {
         List<Object[]> results = entityManager.createNativeQuery(
-                        "SELECT W.ID, WT.TITLE, W.CANCELED, W.FINISHED, W.CREATED_ON " +
+                        "SELECT W.ID, WT.TITLE, W.CANCELED, W.FINISHED, W.CREATED_ON, W.DESCRIPTION " +
                                 "FROM workflow_type WT, workflow W " +
                                 "WHERE W.CREATED_BY = :userId " +
                                 "AND WT.ID = W.WORKFLOW_TYPE_ID")
@@ -62,7 +62,8 @@ public class WorkflowDAOImpl implements WorkflowDAO{
                         (String) result[1],
                         ((Number) result[2]).intValue() == 1,
                         ((Number) result[3]).intValue() == 1,
-                        (Date) result[4]
+                        (Date) result[4],
+                        (String) result[5]
                 ))
                 .collect(Collectors.toList());
     }
@@ -113,6 +114,4 @@ public class WorkflowDAOImpl implements WorkflowDAO{
     public Workflow getWorkflowById(Long id) {
         return entityManager.find(Workflow.class, id);
     }
-
-
 }

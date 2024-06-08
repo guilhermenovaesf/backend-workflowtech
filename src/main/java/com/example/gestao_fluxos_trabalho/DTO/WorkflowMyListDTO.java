@@ -8,13 +8,15 @@ public class WorkflowMyListDTO {
     private boolean canceled;
     private boolean finished;
     private Date createdOn;
+    private String description;
 
-    public WorkflowMyListDTO(Long id, String title, boolean canceled, boolean finished,Date createdOn) {
+    public WorkflowMyListDTO(Long id, String title, boolean canceled, boolean finished,Date createdOn,String description) {
         this.id = id;
         this.title = title;
         this.canceled = canceled;
         this.finished = finished;
         this.createdOn = createdOn;
+        this.description =description;
 
     }
 
@@ -57,5 +59,13 @@ public class WorkflowMyListDTO {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
