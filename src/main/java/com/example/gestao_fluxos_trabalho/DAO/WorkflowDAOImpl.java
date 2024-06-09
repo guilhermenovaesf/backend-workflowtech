@@ -71,16 +71,32 @@ public class WorkflowDAOImpl implements WorkflowDAO{
     @Override
     public List<WorkflowAssignedToMeDTO> listWorkflowsByAssignedUser(Long userId) {
         List<Object[]> results = entityManager.createNativeQuery(
-                        "SELECT W.ID workflow_id, WS.ID workflow_step_id, WT.TITLE title, W.CREATED_ON createdOn, W.DESCRIPTION descriptionWorkflow, U.NAME userName " +
-                                "FROM WORKFLOW_STEP WS, WORKFLOW W, WORKFLOW_TYPE WT, USERS U " +
-                                "WHERE WS.ASSIGNED_TO = :userId " +
-                                "AND WS.IS_CURRENT = 1 " +
-                                "AND WS.IS_APPROVED = 0 " +
-                                "AND W.FINISHED = 0 AND W.CANCELED = 0 "+
-                                "AND WS.WORKFLOW_ID = W.ID " +
-                                "AND WT.ID = W.WORKFLOW_TYPE_ID " +
-                                "AND U.ID = WS.ASSIGNED_TO " +
-                                "GROUP BY WS.ID ORDER BY createdOn")
+                        " SELECT W.ID AS workflow_id,  " +
+                                "    WS.ID AS workflow_step_id,  " +
+                                "    WT.TITLE AS title,  " +
+                                "    W.CREATED_ON AS createdOn,  " +
+                                "    W.DESCRIPTION AS descriptionWorkflow,  " +
+                                "    CU.NAME AS userName " +
+                                "FROM  " +
+                                "    WORKFLOW_STEP WS " +
+                                "JOIN  " +
+                                "    WORKFLOW W ON WS.WORKFLOW_ID = W.ID " +
+                                "JOIN  " +
+                                "    WORKFLOW_TYPE WT ON WT.ID = W.WORKFLOW_TYPE_ID " +
+                                "JOIN  " +
+                                "    USERS U ON U.ID = WS.ASSIGNED_TO " +
+                                "JOIN  " +
+                                "    USERS CU ON CU.ID = W.CREATED_BY " +
+                                "WHERE  " +
+                                "    WS.ASSIGNED_TO = :userId " +
+                                "    AND WS.IS_CURRENT = 1  " +
+                                "    AND WS.IS_APPROVED = 0  " +
+                                "    AND W.FINISHED = 0  " +
+                                "    AND W.CANCELED = 0  " +
+                                "GROUP BY  " +
+                                "    WS.ID, W.ID, WT.TITLE, W.CREATED_ON, W.DESCRIPTION, U.NAME, CU.NAME " +
+                                "ORDER BY  " +
+                                "    createdOn")
                 .setParameter("userId", userId)
                 .getResultList();
 
